@@ -1,0 +1,48 @@
+  @import url('https://fonts.googleapis.com/css2?family=Karla:wght@200;300;400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+  .opening {
+    min-height: 20em;
+    min-width: 20em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .opening-title {
+    font-family: 'Karla';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2em;
+    line-height: 2em;
+    text-align: center;
+    color: #293264;
+  }
+
+  .opening-description {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.2em;
+    text-align: center;
+    color: #293264;
+  }
+
+  .start-quizz {
+    width: 193px;
+    height: 52px;
+    left: 179px;
+    top: 314px;
+    background: #4D5B9E;
+    border-radius: 15px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1em;
+    line-height: 1.1em;
+    color: #F5F7FB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
