@@ -2,8 +2,13 @@ import '../App.css'
 import { useState } from 'react'
 
 export default function QuizQuestion(props) {
-    // console.log('quiz question', props)
-    console.log('answers', answers)
+    console.log('quiz question', props)
+    // console.log('answers', answers)
+
+    const answers = [...props.incorrect_answers, correct_answer]
+    function randomizeAnswers(){
+        answers.map()
+    }
     return (
         <div className="container">
             <h1 className='quiz-question'>{props.question}</h1>
