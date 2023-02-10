@@ -1,10 +1,15 @@
 import '../App.css'
+import AnswerOption from './AnswerOption'
+import { nanoid } from "nanoid"
 import { useState } from 'react'
 
 export default function QuizQuestion(props) {
-    console.log('quiz question', props)
-
+    // console.log('quiz question', props)
     const answers = [...props.incorrect_answers, props.correct_answer]
+
+    const [options, setOptions] = useState(randomizeAnswers(answers))
+    console.log(options)
+
     function randomizeAnswers(arr) {
         const scramble = []
         let randomIdx = Math.floor(Math.random() * 4);
@@ -17,17 +22,35 @@ export default function QuizQuestion(props) {
                 randomIdx++
             }
         })
-        return scramble;
+
+        const newScramble = scramble.map(el => {
+            return { text: el, id: nanoid(), isSelected: false }
+        })
+        return newScramble;
     }
-    const answerElements = randomizeAnswers(answers).map(el => {
-        return (
-            <h3 className='quiz-option' >{decodePartialStr(el)}</h3>
-        )
-    })
 
     function decodePartialStr(str) {
         return new DOMParser().parseFromString(str, 'text/html').body.textContent
     }
+    function selectOption(optionId) {
+        console.log(optionId)
+        setOptions(options.map(el => {
+            return el.id == optionId ?
+                { ...el, isSelected: !el.isSelected } :
+                { ...el, isSelected: false }
+        }))
+    }
+
+    const answerElements = options.map((el, idx) => {
+        return (
+            <AnswerOption
+                key={el.id}
+                text={el.text}
+                isSelected={el.isSelected}
+                select={() => { selectOption(el.id) }}
+            />
+        )
+    })
 
     return (
         <div className="container">
