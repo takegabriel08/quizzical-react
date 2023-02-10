@@ -3,13 +3,11 @@ import { useState } from 'react'
 
 export default function QuizQuestion(props) {
     console.log('quiz question', props)
-    // console.log('answers', answers)
 
     const answers = [...props.incorrect_answers, props.correct_answer]
     function randomizeAnswers(arr) {
         const scramble = []
         let randomIdx = Math.floor(Math.random() * 4);
-
         arr.map((el, idx) => {
             if (randomIdx + 1 > arr.length - 1) {
                 scramble[randomIdx] = el;
@@ -23,13 +21,17 @@ export default function QuizQuestion(props) {
     }
     const answerElements = randomizeAnswers(answers).map(el => {
         return (
-            <h3 className='quiz-option' >{el.replace(/&#039;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&')}</h3>
+            <h3 className='quiz-option' >{decodePartialStr(el)}</h3>
         )
     })
 
+    function decodePartialStr(str) {
+        return new DOMParser().parseFromString(str, 'text/html').body.textContent
+    }
+
     return (
         <div className="container">
-            <h1 className='quiz-question'>{props.question.replace(/&#039;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&')}</h1>
+            <h1 className='quiz-question'>{decodePartialStr(props.question)}</h1>
             <div className="options-container">
                 {answerElements}
             </div>
