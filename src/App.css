@@ -78,7 +78,7 @@
   align-items: center;
   justify-content: center;
   margin: 0;
-  max-width: 6em;
+  min-width: 1em;
   min-height: 1.3em;
   border: 1px solid #4d5b9e;
   border-radius: 0.5em;

@@ -2,7 +2,7 @@ import '../App.css'
 import { useState } from 'react'
 
 export default function AnswerOption(props) {
-    console.log('answer option', props)
+    // console.log('answer option', props)
 
     return (
         <h3
