@@ -10,7 +10,7 @@ function App() {
   const [gameEnd, setGameEnd] = useState(false)
 
   useEffect(() => {
-    fetch('https://opentdb.com/api.php?amount=5&category=9')
+    fetch('https://opentdb.com/api.php?amount=10&category=22&difficulty=easy')
       .then(res => res.json())
       .then(data => setQuizData(data.results))
   }, [gameEnd])

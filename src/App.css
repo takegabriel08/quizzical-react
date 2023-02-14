@@ -54,6 +54,8 @@
 
 .quiz {
   min-width: 80vw;
+  padding-top:1.5em;
+  padding-bottom:1.5em;
 }
 
 .quiz > * {
@@ -74,7 +76,8 @@
 .options-container {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: left;
+  gap: 1em;
 }
 
 .answer-option {
@@ -94,7 +97,7 @@
   color: #293264;
   padding: 0.5em 1em;
   cursor: pointer;
-  margin-top: 3em;
+  margin-top: 0.6em;
 }
 
 .answer-option:hover {

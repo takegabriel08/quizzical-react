@@ -8,6 +8,15 @@ export default function Quiz(props) {
     function decodePartialStr(str) {
         return new DOMParser().parseFromString(str, 'text/html').body.textContent
     }
+    console.log(props)
+    function scramble(arr) {
+        const shuffledArr = [...arr]; // make a copy of the input array
+        for (let i = shuffledArr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledArr[i], shuffledArr[j]] = [shuffledArr[j], shuffledArr[i]];
+        }
+        return shuffledArr;
+    }
 
     function prepareQuestions(data) {
         return data.map(data => {
@@ -15,7 +24,7 @@ export default function Quiz(props) {
                 question: data.question,
                 questionId: nanoid(),
                 correctAnswer: data.correct_answer,
-                answers: [...data.incorrect_answers, data.correct_answer].map(answer => {
+                answers: scramble([...data.incorrect_answers, data.correct_answer]).map(answer => {
                     return {
                         text: decodePartialStr(answer),
                         isSelected: false,
@@ -99,7 +108,12 @@ export default function Quiz(props) {
                 <div className="options-container">
                     {answers}
                 </div>
-                <hr />
+                <hr
+                    style={{
+                        marginTop: "2em",
+                        borderTop: "2px solid #8a2be27a"
+                    }}
+                />
             </div>
         )
     })
