@@ -38,6 +38,7 @@ export default function Quiz(props) {
 
     const [questions, setQuestions] = useState(prepareQuestions(props.data))
     const [canEnd, setCanEnd] = useState(false)
+    var score = props.totalQuestions
 
     useEffect(() => {
         function isSelected(element, index, array) {
@@ -88,6 +89,7 @@ export default function Quiz(props) {
             let answerClass = answer.isSelected ? 'answer-option selected' : 'answer-option'
             if (props.gameEnd && answer.isSelected && !answer.isCorrect) {
                 answerClass = `${answerClass} incorrect`
+                score -= 1
             }
             if (props.gameEnd && answer.isCorrect) {
                 answerClass = `${answerClass} correct`
@@ -125,11 +127,14 @@ export default function Quiz(props) {
             checkAnswersClass = `${checkAnswersClass} disabled`
         }
         return (
-            <div
-                className={checkAnswersClass}
-                onClick={checkAnswersClass.includes('disabled') ? null : showResults}
-            >
-                {!props.gameEnd ? 'Check answers' : 'Play again'}
+            <div className="check-answers-container">
+                {!props.gameEnd ? '' : `You scored ${score}/${props.totalQuestions} correct answers`}
+                <div
+                    className={checkAnswersClass}
+                    onClick={checkAnswersClass.includes('disabled') ? null : showResults}
+                >
+                    {!props.gameEnd ? 'Check answers' : 'Play again'}
+                </div>
             </div>
         )
     }

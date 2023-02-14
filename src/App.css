@@ -54,8 +54,8 @@
 
 .quiz {
   min-width: 80vw;
-  padding-top:1.5em;
-  padding-bottom:1.5em;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
 }
 
 .quiz > * {
@@ -116,5 +116,18 @@
 }
 .correct {
   background: #94d7a2;
+  color: #293264;
+}
+
+.check-answers-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5em;
+  font-family: "Karla";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1em;
+  line-height: 1.5em;
   color: #293264;
 }
