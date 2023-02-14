@@ -28,7 +28,6 @@ export default function Quiz(props) {
     }
 
     const [questions, setQuestions] = useState(prepareQuestions(props.data))
-    const [gameEnd, setGameEnd] = useState(false)
     const [canEnd, setCanEnd] = useState(false)
 
     useEffect(() => {
@@ -65,12 +64,12 @@ export default function Quiz(props) {
     function showResults() {
         console.log(questions)
 
-        if (!gameEnd && canEnd) {
+        if (!props.gameEnd && canEnd) {
             console.log("end the game")
-            setGameEnd(true)
+            props.restart()
         }
-        if (gameEnd) {
-            setGameEnd(false)
+        if (props.gameEnd) {
+            props.restart()
             setQuestions(prepareQuestions(props.data))
         }
     }
@@ -78,10 +77,10 @@ export default function Quiz(props) {
     const qs = questions.map(questionEl => {
         const answers = questionEl.answers.map(answer => {
             let answerClass = answer.isSelected ? 'answer-option selected' : 'answer-option'
-            if (gameEnd && answer.isSelected && !answer.isCorrect) {
+            if (props.gameEnd && answer.isSelected && !answer.isCorrect) {
                 answerClass = `${answerClass} incorrect`
             }
-            if (gameEnd && answer.isCorrect) {
+            if (props.gameEnd && answer.isCorrect) {
                 answerClass = `${answerClass} correct`
             }
             return (
@@ -116,7 +115,7 @@ export default function Quiz(props) {
                 className={checkAnswersClass}
                 onClick={checkAnswersClass.includes('disabled') ? null : showResults}
             >
-                {!gameEnd ? 'Check answers' : 'Play again'}
+                {!props.gameEnd ? 'Check answers' : 'Play again'}
             </div>
         )
     }

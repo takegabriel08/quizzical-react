@@ -7,12 +7,17 @@ import './App.css'
 function App() {
   const [firstPage, setFirstPage] = useState(true)
   const [quizData, setQuizData] = useState([])
+  const [gameEnd, setGameEnd] = useState(false)
 
   useEffect(() => {
     fetch('https://opentdb.com/api.php?amount=5&category=9')
       .then(res => res.json())
       .then(data => setQuizData(data.results))
-  }, [])
+  }, [gameEnd])
+
+  function restart() {
+    setGameEnd(prev => !prev)
+  }
 
   function hideFirstPage() {
     setFirstPage(prev => !prev)
@@ -27,6 +32,8 @@ function App() {
         /> :
         <Quiz
           data={quizData}
+          restart={restart}
+          gameEnd={gameEnd}
         />}
     </div>
   )
