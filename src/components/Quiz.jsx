@@ -8,7 +8,6 @@ export default function Quiz(props) {
     function decodePartialStr(str) {
         return new DOMParser().parseFromString(str, 'text/html').body.textContent
     }
-    console.log(props)
     function scramble(arr) {
         const shuffledArr = [...arr]; // make a copy of the input array
         for (let i = shuffledArr.length - 1; i > 0; i--) {
@@ -72,8 +71,6 @@ export default function Quiz(props) {
     }
 
     function showResults() {
-        console.log(questions)
-
         if (!props.gameEnd && canEnd) {
             console.log("end the game")
             props.restart()

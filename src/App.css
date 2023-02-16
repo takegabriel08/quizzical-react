@@ -47,6 +47,7 @@
   justify-content: center;
   cursor: pointer;
 }
+
 .disabled {
   background-color: grey;
   cursor: not-allowed;
@@ -58,7 +59,7 @@
   padding-bottom: 1.5em;
 }
 
-.quiz > * {
+.quiz>* {
   margin: auto;
 }
 
@@ -114,6 +115,7 @@
   background-color: #f8bcbc;
   color: #293264;
 }
+
 .correct {
   background: #94d7a2;
   color: #293264;
@@ -130,4 +132,26 @@
   font-size: 1em;
   line-height: 1.5em;
   color: #293264;
+}
+
+.user-name {
+  text-align: center;
+  padding: 1em 0;
+  border: none;
+  background-color: #4d5b9e;
+  border-radius: 2em;
+  font-family: "Karla";
+  font-style: normal;
+  font-weight: 500;
+  color: #FFFAD1
+}
+
+.user-name::placeholder {
+  color: #FFFAD1;
+}
+
+.user-name:focus {
+  outline: none;
+  background-color: #FFFAD1;
+  color: #4d5b9e;
 }
