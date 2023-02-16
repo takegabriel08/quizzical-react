@@ -51,7 +51,7 @@ export default function Quiz(props) {
         }
         let canWeEndTheGame = canEndGame.length == questions.length && canEndGame.every(isTrue)
         setCanEnd(canWeEndTheGame)
-        if (canWeEndTheGame) {
+        if (canWeEndTheGame && props.name) {
             setScore(prevScore => {
                 let scoreToSet;
                 questions.map(question => {
@@ -84,6 +84,7 @@ export default function Quiz(props) {
     function showBestScore() {
         let bestScore = getScoreFromLocalBrowser()
         let scoreObj = JSON.parse(bestScore)
+        if (!props.name) return
         if (bestScore == 0) {
             return `No score available`
         } else {
