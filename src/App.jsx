@@ -17,6 +17,10 @@ function App() {
       .then(data => setQuizData(data.results))
   }, [gameEnd])
 
+  function getName(event) {
+    setName(event.target.value)
+  }
+
   function restart() {
     setGameEnd(prev => !prev)
   }
@@ -29,7 +33,7 @@ function App() {
     <div className="App">
       {firstPage ?
         <Opening
-          getUserName={getUserName}
+          getName={getName}
           firstPage={firstPage}
           hideFirstPage={hideFirstPage}
         /> :
