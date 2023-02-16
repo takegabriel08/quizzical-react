@@ -37,8 +37,7 @@ export default function Quiz(props) {
 
     const [questions, setQuestions] = useState(prepareQuestions(props.data))
     const [canEnd, setCanEnd] = useState(false)
-    console.log(props.name)
-    var score = props.totalQuestions
+    const [score, setScore] = useState(props.totalQuestions)
 
     useEffect(() => {
         function isSelected(element, index, array) {
@@ -50,8 +49,47 @@ export default function Quiz(props) {
             const element = questions[index];
             canEndGame.push(element.answers.some(isSelected))
         }
-        setCanEnd(canEndGame.length == questions.length && canEndGame.every(isTrue))
+        let canWeEndTheGame = canEndGame.length == questions.length && canEndGame.every(isTrue)
+        setCanEnd(canWeEndTheGame)
+        if (canWeEndTheGame) {
+            setScore(prevScore => {
+                let scoreToSet;
+                questions.map(question => {
+                    question.answers.map(answer => {
+                        if (answer.isCorrect && answer.isSelected) {
+                            scoreToSet = scoreToSet == undefined ? 1 : scoreToSet + 1
+                        }
+                    })
+                })
+                setScore(scoreToSet == undefined ? 0 : scoreToSet)
+                let scoreFromBrowser = getScoreFromLocalBrowser()
+                if (scoreFromBrowser == null) {
+                    setScoreOnLocalBrowser({ correctAnswers: scoreToSet, totalQuestions: props.totalQuestions })
+                }
+                if (scoreToSet > JSON.parse(scoreFromBrowser).correctAnswers) {
+                    setScoreOnLocalBrowser({ correctAnswers: scoreToSet, totalQuestions: props.totalQuestions })
+                }
+            })
+        }
     }, [questions])
+
+    function setScoreOnLocalBrowser(scoreToSet) {
+        localStorage.setItem(props.name, JSON.stringify(scoreToSet))
+    }
+    function getScoreFromLocalBrowser() {
+        let scoreReceived = localStorage.getItem(props.name) || 0
+        return scoreReceived
+    }
+
+    function showBestScore() {
+        let bestScore = getScoreFromLocalBrowser()
+        let scoreObj = JSON.parse(bestScore)
+        if (bestScore == 0) {
+            return `No score available`
+        } else {
+            return `Best score: ${scoreObj.correctAnswers}/${scoreObj.totalQuestions}`
+        }
+    }
 
     function selectOption(optionId) {
         const toUpdate = questions.map(q => {
@@ -73,11 +111,9 @@ export default function Quiz(props) {
 
     function showResults() {
         if (!props.gameEnd && canEnd) {
-            console.log("end the game")
             props.restart()
         }
         if (props.gameEnd) {
-            console.log("restart the game")
             props.restart()
             setQuestions(prepareQuestions(props.data))
         }
@@ -88,7 +124,7 @@ export default function Quiz(props) {
             let answerClass = answer.isSelected ? 'answer-option selected' : 'answer-option'
             if (props.gameEnd && answer.isSelected && !answer.isCorrect) {
                 answerClass = `${answerClass} incorrect`
-                score -= 1
+                // score -= 1
             }
             if (props.gameEnd && answer.isCorrect) {
                 answerClass = `${answerClass} correct`
@@ -119,7 +155,7 @@ export default function Quiz(props) {
         )
     })
 
-
+    console.log(!props.gameEnded)
     const CheckAnswerBtn = () => {
         var checkAnswersClass = "start-quizz"
         if (!canEnd) {
@@ -134,7 +170,8 @@ export default function Quiz(props) {
                 >
                     {!props.gameEnd ? 'Check answers' : 'Play again'}
                 </div>
-            </div>
+                {!props.gameEnd ? null : < h4 className="best-score">{showBestScore()}</h4>}
+            </div >
         )
     }
     return (
