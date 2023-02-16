@@ -8,7 +8,7 @@ function App() {
   const [firstPage, setFirstPage] = useState(true)
   const [quizData, setQuizData] = useState([])
   const [gameEnd, setGameEnd] = useState(false)
-  const [totalQuestions, setTotalQuestions] = useState(5)
+  const [totalQuestions, setTotalQuestions] = useState(3)
   const [name, setName] = useState('')
 
   useEffect(() => {
@@ -38,7 +38,7 @@ function App() {
           hideFirstPage={hideFirstPage}
         /> :
         <Quiz
-          userName={name}
+          name={name}
           data={quizData}
           totalQuestions={totalQuestions}
           restart={restart}

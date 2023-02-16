@@ -37,6 +37,7 @@ export default function Quiz(props) {
 
     const [questions, setQuestions] = useState(prepareQuestions(props.data))
     const [canEnd, setCanEnd] = useState(false)
+    console.log(props.name)
     var score = props.totalQuestions
 
     useEffect(() => {
@@ -76,6 +77,7 @@ export default function Quiz(props) {
             props.restart()
         }
         if (props.gameEnd) {
+            console.log("restart the game")
             props.restart()
             setQuestions(prepareQuestions(props.data))
         }
