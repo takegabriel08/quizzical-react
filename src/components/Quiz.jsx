@@ -61,7 +61,8 @@ export default function Quiz(props) {
                         }
                     })
                 })
-                setScore(scoreToSet == undefined ? 0 : scoreToSet)
+                scoreToSet = scoreToSet == undefined ? 0 : scoreToSet
+                setScore(scoreToSet)
                 let scoreFromBrowser = getScoreFromLocalBrowser()
                 if (scoreFromBrowser == 0) {
                     setScoreOnLocalBrowser({ correctAnswers: scoreToSet, totalQuestions: props.totalQuestions })

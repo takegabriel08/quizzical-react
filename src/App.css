@@ -59,7 +59,7 @@
   padding-bottom: 1.5em;
 }
 
-.quiz>* {
+.quiz > * {
   margin: auto;
 }
 
@@ -75,10 +75,10 @@
 }
 
 .options-container {
-  display: flex;
+  /* display: flex;
   align-items: center;
   justify-content: left;
-  gap: 1em;
+  gap: 1em; */
 }
 
 .answer-option {
@@ -98,7 +98,8 @@
   color: #293264;
   padding: 0.5em 1em;
   cursor: pointer;
-  margin-top: 0.6em;
+  margin: 0.5em;
+  margin-bottom: 0;
 }
 
 .answer-option:hover {
@@ -143,15 +144,18 @@
   font-family: "Karla";
   font-style: normal;
   font-weight: 500;
-  color: #FFFAD1
+  color: #fffad1;
 }
 
 .user-name::placeholder {
-  color: #FFFAD1;
+  color: #fffad1;
 }
 
 .user-name:focus {
   outline: none;
-  background-color: #FFFAD1;
+  background-color: #fffad1;
   color: #4d5b9e;
+}
+
+@media (max-width: 405px) {
 }
