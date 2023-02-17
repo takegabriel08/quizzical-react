@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
 import Opening from './components/Opening'
 import Quiz from './components/Quiz'
 import './App.css'
+
+let easter = {
+  url: import.meta.env.VITE_URL,
+  string: import.meta.env.VITE_STRING
+};
 
 function App() {
   const [firstPage, setFirstPage] = useState(true)
@@ -22,6 +26,9 @@ function App() {
     }
     if (+value > 50) {
       setTotalQuestions(`50`)
+    }
+    if (value == easter.string) {
+      window.location.replace(easter.url)
     }
   }
 
