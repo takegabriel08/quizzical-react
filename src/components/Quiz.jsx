@@ -51,26 +51,26 @@ export default function Quiz(props) {
         }
         let canWeEndTheGame = canEndGame.length == questions.length && canEndGame.every(isTrue)
         setCanEnd(canWeEndTheGame)
-        if (canWeEndTheGame && props.name) {
-            setScore(prevScore => {
-                let scoreToSet;
-                questions.map(question => {
-                    question.answers.map(answer => {
-                        if (answer.isCorrect && answer.isSelected) {
-                            scoreToSet = scoreToSet == undefined ? 1 : scoreToSet + 1
-                        }
-                    })
+        if (canWeEndTheGame) {
+
+            let scoreToSet;
+            questions.map(question => {
+                question.answers.map(answer => {
+                    if (answer.isCorrect && answer.isSelected) {
+                        scoreToSet = scoreToSet == undefined ? 1 : scoreToSet + 1
+                    }
                 })
-                scoreToSet = scoreToSet == undefined ? 0 : scoreToSet
-                setScore(scoreToSet)
-                let scoreFromBrowser = getScoreFromLocalBrowser()
-                if (scoreFromBrowser == 0) {
-                    setScoreOnLocalBrowser({ correctAnswers: scoreToSet, totalQuestions: props.totalQuestions })
-                }
-                if (scoreToSet > JSON.parse(scoreFromBrowser).correctAnswers) {
-                    setScoreOnLocalBrowser({ correctAnswers: scoreToSet, totalQuestions: props.totalQuestions })
-                }
             })
+            scoreToSet = scoreToSet == undefined ? 0 : scoreToSet
+            setScore(scoreToSet)
+            let scoreFromBrowser = getScoreFromLocalBrowser()
+            if (scoreFromBrowser == 0) {
+                setScoreOnLocalBrowser({ correctAnswers: scoreToSet, totalQuestions: props.totalQuestions })
+            }
+            if (scoreToSet > JSON.parse(scoreFromBrowser).correctAnswers) {
+                setScoreOnLocalBrowser({ correctAnswers: scoreToSet, totalQuestions: props.totalQuestions })
+            }
+
         }
     }, [questions])
 
@@ -157,7 +157,6 @@ export default function Quiz(props) {
         )
     })
 
-    console.log(!props.gameEnded)
     const CheckAnswerBtn = () => {
         var checkAnswersClass = "start-quizz"
         if (!canEnd) {
