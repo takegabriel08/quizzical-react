@@ -12,10 +12,14 @@ function App() {
   const [name, setName] = useState('')
 
   useEffect(() => {
-    fetch(`https://opentdb.com/api.php?amount=${totalQuestions}&category=0&difficulty=easy`)
+    fetch(`https://opentdb.com/api.php?amount=${totalQuestions}`)
       .then(res => res.json())
       .then(data => setQuizData(data.results))
-  }, [gameEnd])
+  }, [gameEnd, totalQuestions])
+
+  function getNumberOfQuestions(event) {
+    setTotalQuestions(event.target.value)
+  }
 
   function getName(event) {
     setName(event.target.value)
@@ -34,6 +38,7 @@ function App() {
       {firstPage ?
         <Opening
           getName={getName}
+          getNumberOfQuestions={getNumberOfQuestions}
           firstPage={firstPage}
           hideFirstPage={hideFirstPage}
         /> :
